@@ -12,9 +12,8 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      User.belongsToMany(models.Post, {through: 'Likes'})
       User.hasMany(models.Post, {foreignKey: 'UserId'})
-      User.hasMany(models.Comment, {foreignKey: 'UserId'})
+      
     }
   };
   User.init({
@@ -55,15 +54,7 @@ module.exports = (sequelize, DataTypes) => {
         }
       }
     },
-    profileUrl: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      validate: {
-        notNull: {msg: 'profileUrl is required'},
-        notNull: {msg: 'profileUrl is required'},
-        isUrl: {msg: 'profileUrl should be url format'}
-      }
-    }
+    profileUrl: DataTypes.STRING,
   }, {
     hooks: {
       beforeCreate: (user, options) => {

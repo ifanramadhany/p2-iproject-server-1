@@ -11,8 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Post.belongsToMany(models.User, {through: 'Likes'})
-      Post.hasMany(models.Comment, {foreignKey: 'PostId'})
+      Post.belongsTo(models.User, {foreignKey: 'UserId'})
     }
   };
   Post.init({
@@ -41,14 +40,6 @@ module.exports = (sequelize, DataTypes) => {
         isUrl: {msg: 'embedUrl should be url format'}
       }
     },
-    like: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      validate: {
-        notNull: {msg: 'like is required'}
-      },
-      defaultValue: 0
-    },
     caption: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -56,6 +47,10 @@ module.exports = (sequelize, DataTypes) => {
         notNull: {msg: 'caption is required'},
         notEmpty: {msg: 'caption is required'},
       }
+    },
+    like: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0    
     },
     UserId: {
       type: DataTypes.INTEGER,
