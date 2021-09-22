@@ -87,7 +87,7 @@ _Response (500 - Internal Server Error)_
 _Request Header_
 
 ```
-not needed
+no needed
 ```
 
 _Request Body_
@@ -132,7 +132,7 @@ _Response (500 - Internal Server Error)_
 _Request Header_
 
 ```
-not needed
+no needed
 ```
 
 _Request Body_
@@ -175,7 +175,7 @@ _Request Header_
 _Request Body_
 
 ```
-not needed
+no needed
 ```
 
 _Response (200)_
@@ -280,15 +280,13 @@ _Response (500 - Internal Server Error)_
 _Request Header_
 
 ```
-{
-  "access_token": "<string>"
-}
+no needed
 ```
 
 _Request Body_
 
 ```
-not needed
+no needed
 ```
 
 _Response (200)_
@@ -601,7 +599,7 @@ _Request Header_
 _Request Body_
 
 ```
-not needed
+no needed
 ```
 
 
@@ -983,7 +981,7 @@ _Response (500 - Internal Server Error)_
 _Request Header_
 
 ```
-not needed
+no needed
 ```
 
 _Request Body_
@@ -1028,7 +1026,7 @@ _Response (500 - Internal Server Error)_
 _Request Header_
 
 ```
-not needed
+no needed
 ```
 
 _Request Body_
@@ -1071,7 +1069,7 @@ _Request Header_
 _Request Body_
 
 ```
-not needed
+no needed
 ```
 
 _Response (200)_
@@ -1120,7 +1118,7 @@ _Request Header_
 _Request Body_
 
 ```
-not needed
+no needed
 ```
 
 _Request Params_
@@ -1184,7 +1182,7 @@ _Request Header_
 _Request Body_
 
 ```
-not needed
+no needed
 ```
 
 _Request Params_

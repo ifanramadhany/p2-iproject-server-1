@@ -1,11 +1,50 @@
 const { checkPassword } = require('../helpers/bcrypt');
 const { signToken } = require('../helpers/jwt');
 const { User  } = require('../models');
+const { OAuth2Client } = require("google-auth-library");
+const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 
 class UserController {
+  static async googleAuth(req, res, next) {
+    try {
+      const ticket = await client.verifyIdToken({
+        idToken: req.body.idToken,
+        audience: process.env.GOOGLE_CLIENT_ID,
+      });
+
+      const payload = ticket.getPayload();
+      // console.log(payload);
+      const email = payload.email;
+      const username = payload.name;
+      let newUsername = ``;
+      for (let i = 0; i < username.length; i++) {
+        if (username[i] !== " ") {
+          newUsername += username[i].toLowerCase();
+        }
+      }
+      const [user] = await User.findOrCreate({
+        where: { email },
+        defaults: {
+          username: newUsername,
+          email: payload.email,
+          password: `${process.env.GOOGLE_PASSWORD}`,
+        },
+      });
+      const access_token = signToken({
+        id: user.id,
+        username: user.username,
+        email: user.email,
+        profileUrl: user.profileUrl
+      });
+      res.status(201).json({
+        access_token,
+      });
+    } catch (err) {
+      next(err);
+    }
+  }
   static async register(req, res, next) {
     const { username, email, password } = req.body;
-
     try {
       const userData = await User.create({
         username,

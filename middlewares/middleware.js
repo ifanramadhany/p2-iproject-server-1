@@ -25,24 +25,18 @@ const authentication = async (req, res, next) => {
 };
 
 const authorization = async (req, res, next) => {
-  const foodId = req.params.id;
-  console.log(foodId);
+  const postId = req.params.id;
   try {
-    if (req.user.role === "admin") {
-      next();
-    } else {
-      const foodData = await Food.findByPk(foodId);
-      console.log(foodData);
-      if (!foodData) {
-        throw { name: "foodNotFound" };
-      }
-      const authorId = foodData.authorId;
-
-      if (authorId !== +req.user.id) {
-        throw { name: "forbidden" };
-      }
-      next();
+    const postData = await Post.findByPk(postId);
+    if (!postData) {
+      throw { name: "postNotFound" };
     }
+    const UserId = postData.UserId;
+
+    if (UserId !== +req.user.id) {
+      throw { name: "forbidden" };
+    }
+    next();
   } catch (err) {
     next(err);
   }
