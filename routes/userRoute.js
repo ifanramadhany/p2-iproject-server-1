@@ -5,9 +5,10 @@ const uploadImage = require('../middlewares/multer');
 
 const router = require('express').Router();
 
-router.use('/register', UserController.register)
-router.use('/login', UserController.login)
-router.use('/data', authentication, UserController.getUserData)
+router.post('/register', UserController.register)
+router.post('/login', UserController.login)
+router.post('/auth/google', UserController.googleAuth);
+router.get('/data', authentication, UserController.getUserData)
 router.patch('/profile', authentication, uploadImage, imageKit, UserController.changeProfile);
 
 module.exports = router
