@@ -2,6 +2,7 @@
 const {
   Model
 } = require('sequelize');
+const { hashPassword } = require('../helpers/bcrypt');
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
     /**
@@ -66,7 +67,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     hooks: {
       beforeCreate: (user, options) => {
-        user.password = hashPassword(user.password);
+        user.password = hashPassword(user.password)
         user.profileUrl = `https://avatars.dicebear.com/api/bottts/${user.username}.svg`
       }
     },
