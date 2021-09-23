@@ -39,6 +39,31 @@ class PostController {
     }
   }
 
+  static async getPostById(req, res, next) {
+    const { id } = req.params;
+    try {
+      const postData = await Post.findByPk(id);
+      if (!postData) {
+        throw { name: "postNotFound" };
+      } else {
+        const data = await Post.findByPk(id, {
+          include: [
+            {
+              model: User,
+              attributes: {
+                exclude: ["password"],
+              },
+            },
+          ],
+        });
+        res.status(200).json(data);
+      }
+    } catch (err) {
+      console.log(err);
+      next(err);
+    }
+  }
+
   static async deletePost(req, res, next) {
     const { id } = req.params;
     try {
@@ -56,6 +81,8 @@ class PostController {
       next(err);
     }
   }
+
+
 }
 
 module.exports = PostController
